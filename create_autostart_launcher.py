@@ -10,7 +10,7 @@ class FileChooserWindow(Gtk.Window):
 
     def __init__(self):
         Gtk.Window.__init__(self, title="FileChooser Example")
-        self.set_default_size(300, 400)
+        #self.set_default_size(300, 400)
 
         self.long_text = "[Desktop Entry]\n" \
                     "Name=[NAME]\n" \
@@ -22,19 +22,19 @@ class FileChooserWindow(Gtk.Window):
 
         # Set Entry Widget to the File Name
         self.entryFile = Gtk.Entry()
-        self.entryFile.set_text("Path to File")
+        self.entryFile.set_text("Chemin vers le fichier")
         self.entryFile.set_width_chars(75)
         self.entryFile.set_editable(False)
 
         # Set Entry Widget to the Icon
         self.entryIcon = Gtk.Entry()
-        self.entryIcon.set_text("Path To Icon")
+        self.entryIcon.set_text("Chemin de l'icone")
         self.entryIcon.set_width_chars(75)
         self.entryIcon.set_editable(False)
 
         # Set Entry Widget to the Name on the starter
         self.entryName = Gtk.Entry()
-        self.entryName.set_text("Name of the started")
+        self.entryName.set_text("Nom du lanceur")
         self.entryName.set_width_chars(75)
         self.entryName.set_editable(True)
 
@@ -93,23 +93,34 @@ class FileChooserWindow(Gtk.Window):
         btnCreateFile = Gtk.Button(label="Générer le fichier")
         btnCreateFile.connect("clicked", self.create_autostart_file)
 
+        # Labels
+        labelPreview = Gtk.Label(label="Prévisualisation du fichier généré")
+        labelPreviewIcon = Gtk.Label(label="Prév. Icone")
 
+        # Button About Dialog
+        btnAbout = Gtk.Button(label="About")
 
         grid = Gtk.Grid()
         grid.set_column_spacing(6)
         grid.set_row_spacing(6)
         #grid.set_row_homogeneous(True)
         grid.attach(self.entryName, 0, 0, 1, 1)
-        grid.attach(btnName, 1, 0, 1, 1)
+        grid.attach(btnName, 1, 0, 2, 1)
         grid.attach(self.entryFile,0,1,1,1)
-        grid.attach(btnFileName,1,1,1,1)
+        grid.attach(btnFileName,1,1,2,1)
         grid.attach(self.entryIcon,0,2,1,1)
-        grid.attach(self.btnFileIcon,1,2,1,1)
-        grid.attach(scrolled_window,0,3,1,10)
-        grid.attach(self.img,1,3,1,1)
-        grid.attach(labelSwitch,1,4,1,1)
-        grid.attach(switch,1,5,1,1)
-        grid.attach(btnCreateFile,0,13,1,1)
+        grid.attach(self.btnFileIcon,1,2,2,1)
+        # Label
+        grid.attach(labelPreview,0,3,3,1)
+        grid.attach(labelPreviewIcon,1,4,2,1)
+
+        grid.attach(scrolled_window,0,4,1,10)
+        grid.attach(self.img,1,5,2,1)
+        grid.attach(labelSwitch,1,13,1,1)
+        grid.attach(switch,2,13,1,1)
+        grid.attach(btnCreateFile, 0, 14, 2, 1)
+        grid.attach(btnAbout, 2, 14, 1, 1)
+
         self.add(grid)
 
     def create_autostart_file(self,widget):
