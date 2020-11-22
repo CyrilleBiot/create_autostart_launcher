@@ -1,0 +1,4 @@
+source/apropos.png usr/share/create_autostart_launcher/
+source/create_autostart_launcher.py usr/share/create_autostart_launcher/
+source/create_autostart_launcher.desktop /usr/share/applications/
+source/create_autostart_launcher.6.gz usr/share/man/man6/

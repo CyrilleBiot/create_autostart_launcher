@@ -10,7 +10,7 @@ __author__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __copyright__ = "Copyleft"
 __credits__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __license__ = "GPL"
-__version__ = "1.0"
+__version__ = "1.0.0"
 __date__ = "2020/11/22"
 __maintainer__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __email__ = "cyrille@cbiot.fr"
@@ -27,8 +27,17 @@ from PIL import  Image
 class FileChooserWindow(Gtk.Window):
 
     def __init__(self):
-        Gtk.Window.__init__(self, title="FileChooser Example")
+        Gtk.Window.__init__(self, title="Create Autostart Launcher")
         #self.set_default_size(300, 400)
+
+        # The path
+        if os.path.exists('.git'):
+            self.pathDir = "."
+        else:
+            self.pathDir = "/usr/share/create_autostart_launcher/"
+
+        self.set_icon_from_file(self.pathDir + '/apropos.png')
+
 
         self.long_text = "[Desktop Entry]\n" \
                     "Name=[NAME]\n" \
@@ -91,7 +100,7 @@ class FileChooserWindow(Gtk.Window):
 
         # Icon preview
         self.img = Gtk.Image()
-        self.img.set_from_file('apropos.png')
+        self.img.set_from_file(self.pathDir + '/apropos.png')
 
         # Label to the switch
         labelSwitch = Gtk.Label(label="Mode Edition")
@@ -342,7 +351,7 @@ class FileChooserWindow(Gtk.Window):
         authors = ["Cyrille BIOT"]
         documenters = ["Cyrille BIOT"]
         self.dialog = Gtk.AboutDialog()
-        logo = GdkPixbuf.Pixbuf.new_from_file("./apropos.png")
+        logo = GdkPixbuf.Pixbuf.new_from_file(self.pathDir + "/apropos.png")
         if logo != None:
             self.dialog.set_logo(logo)
         else:
