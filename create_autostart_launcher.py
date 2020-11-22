@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 create_autostart_launcher.py
-Utilitaire de création de lanceur avec une connexion X
+Utilitaire de création de lanceur suite à une connexion X
 
   Source : https://github.com/CyrilleBiot/create_autostart_launcher
 
@@ -22,6 +22,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf
 import re # regex
 import os
+from PIL import  Image
 
 class FileChooserWindow(Gtk.Window):
 
@@ -68,25 +69,25 @@ class FileChooserWindow(Gtk.Window):
         btnName.connect("clicked", self.update_textview, self.entryName)
 
         # a scrollbar for the child widget (that is going to be the textview)
-        scrolled_window = Gtk.ScrolledWindow()
-        scrolled_window.set_border_width(5)
+        scrolledWindow = Gtk.ScrolledWindow()
+        scrolledWindow.set_border_width(5)
         # we scroll only if needed
-        scrolled_window.set_policy(
+        scrolledWindow.set_policy(
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
         # A text Viex
-        self.text_view = Gtk.TextView()
+        self.textView = Gtk.TextView()
         # wrap the text, if needed, breaking lines in between words
-        self.text_view.set_wrap_mode(Gtk.WrapMode.WORD)
-        self.text_view.set_editable(False)
+        self.textView.set_wrap_mode(Gtk.WrapMode.WORD)
+        self.textView.set_editable(False)
 
         # The text buffer
-        self.text_buffer = self.text_view.get_buffer()
+        self.text_buffer = self.textView.get_buffer()
         self.text_buffer.set_text(self.long_text)  # sympath pour inserer la où est le curseur mais pas nécessaire ici
 
         # Textview is scrolled
-        scrolled_window.add(self.text_view)
-        scrolled_window.set_min_content_height(125)
+        scrolledWindow.add(self.textView)
+        scrolledWindow.set_min_content_height(125)
 
         # Icon preview
         self.img = Gtk.Image()
@@ -132,7 +133,7 @@ class FileChooserWindow(Gtk.Window):
         grid.attach(labelPreview,0,3,3,1)
         grid.attach(labelPreviewIcon,1,4,2,1)
 
-        grid.attach(scrolled_window,0,4,1,10)
+        grid.attach(scrolledWindow,0,4,1,10)
         grid.attach(self.img,1,5,2,1)
         grid.attach(labelSwitch,1,13,1,1)
         grid.attach(self.switch,2,13,1,1)
@@ -163,15 +164,21 @@ class FileChooserWindow(Gtk.Window):
             end_iter = self.text_buffer.get_end_iter()
             self.long_text = self.text_buffer.get_text(start_iter, end_iter, True)
         else:
-            print('EDITION NOT')
+            print('NOT IN THE MODE EDITION')
 
             # Test of existence files to exec and icon
             if not os.path.isfile(self.entryFile.get_text()):
                 print("Fichier FILE inexistant")
+                msg1 = "L'exe n'est pas renseigné."
+                msg2 = "Veuillez sélectionné un fichier depuis le bouton FILE."
+                self.warning_alert(self, msg1, msg2)
                 return
 
             if not os.path.isfile(self.entryIcon.get_text()):
                 print("Fichier ICON inexistant")
+                msg1 = "L'icone n'est pas renseigné."
+                msg2 = "Veuillez sélectionné un fichier depuis le bouton ICON."
+                self.warning_alert(self, msg1, msg2)
                 return
 
             # Test is the file.desktop already exists or not
@@ -186,9 +193,6 @@ class FileChooserWindow(Gtk.Window):
                 msg2 = "Veuillez changer son nom. Ou effacer le fichier déjà existant."
                 self.warning_alert(self, msg1, msg2)
                 return
-            return
-
-        print(self.long_text) # DEBUG
 
         # Record the configuration file to  .config/autostart/NameOfFile.desktop
         file = open(name_of_file, "x")
@@ -199,10 +203,10 @@ class FileChooserWindow(Gtk.Window):
     def on_switch_activated(self, switch, gparam):
         if switch.get_active():
             state = "on"
-            self.text_view.set_editable(True)
+            self.textView.set_editable(True)
         else:
             state = "off"
-            self.text_view.set_editable(False)
+            self.textView.set_editable(False)
 
     def create_text_buffer(self, widget):
         self.text_buffer.set_text(self.long_text)
@@ -244,9 +248,23 @@ class FileChooserWindow(Gtk.Window):
         self.add_filters(widget, dialog)
 
         response = dialog.run()
+
         if response == Gtk.ResponseType.OK:
             print("Open clicked") #DEBUG
             print("File selected for file: " + dialog.get_filename()) # DEBUG
+
+            # Test if image size < 48 x 48
+            if widget.get_label() == "Icon Selection":
+                print('This is a icon selection')
+                img = Image.open(dialog.get_filename())
+                print(img.size)
+                if img.size[0] > 48 or img.size[1] > 48:
+                    print("Size is bigger")
+                    msg1 = "La taille de l'icone est inadaptée"
+                    msg2 = "Veuillez sélectionné un fichier avec une taille maximale de 48X48"
+                    self.warning_alert(self, msg1, msg2)
+                    dialog.destroy()
+                    return
             entry.set_text(dialog.get_filename())
 
             if entry == self.entryFile:
