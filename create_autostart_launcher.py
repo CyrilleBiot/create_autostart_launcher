@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-pwgen.py
-Utilitaire de création de mot de passe
-Aucune utilité, juste pédagogique pou manipuler GTK
+create_autostart_launcher.py
+Utilitaire de création de lanceur avec une connexion X
 
-  Source : https://github.com/CyrilleBiot/pwgen
+  Source : https://github.com/CyrilleBiot/create_autostart_launcher
 
 __author__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __copyright__ = "Copyleft"
 __credits__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __license__ = "GPL"
-__version__ = "2.0"
-__date__ = "2020/11/10"
+__version__ = "1.0"
+__date__ = "2020/11/22"
 __maintainer__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __email__ = "cyrille@cbiot.fr"
 __status__ = "Devel"
@@ -190,7 +189,6 @@ class FileChooserWindow(Gtk.Window):
             return
 
         print(self.long_text) # DEBUG
-        return
 
         # Record the configuration file to  .config/autostart/NameOfFile.desktop
         file = open(name_of_file, "x")
