@@ -10,8 +10,8 @@ __author__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __copyright__ = "Copyleft"
 __credits__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __license__ = "GPL"
-__version__ = "1.0.0"
-__date__ = "2020/11/22"
+__version__ = "1.1.1"
+__date__ = "2020/11/23"
 __maintainer__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __email__ = "cyrille@cbiot.fr"
 __status__ = "Devel"
@@ -164,6 +164,19 @@ class FileChooserWindow(Gtk.Window):
 
         dialog.destroy()
 
+    def ok_alert(self, widget, message1, message2):
+        dialog = Gtk.MessageDialog(
+            transient_for=self,
+            flags=0,
+            message_type=Gtk.MessageType.ERROR,
+            buttons=Gtk.ButtonsType.OK,
+            text=message1,
+        )
+        dialog.format_secondary_text(message2)
+        dialog.run()
+
+        dialog.destroy()
+
     def create_autostart_file(self,widget):
 
         # If edition mode, save the current buffer. Without any test (name, file, icon...)
@@ -207,6 +220,12 @@ class FileChooserWindow(Gtk.Window):
         file = open(name_of_file, "x")
         file.write(self.long_text)
         file.close()
+
+        msg1 = "Fichier autostart créé."
+        msg2 = "Le fichier d'autostart a été créé à cet emplacement : \n \n " \
+                + name_of_file + ".\n \n  " \
+                "Il sera actif au prochain démarrage de session X\n \n  "
+        self.ok_alert(self, msg1, msg2)
 
 
     def on_switch_activated(self, switch, gparam):

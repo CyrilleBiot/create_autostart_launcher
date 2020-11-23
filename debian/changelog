@@ -1,5 +1,6 @@
-create-autostart-launcher (1.1.0) UNRELEASED; urgency=medium
+create-autostart-launcher (1.1.1) unstable; urgency=medium
 
   * Initial release. First Package 
+  * Add alert dialog boxes 
 
- -- ragnarok <ragnarok@valhalla.sid-local>  Sun, 22 Nov 2020 17:30:22 +0100
+ -- ragnarok <ragnarok@valhalla.sid-local>  Mon, 23 Nov 2020 20:46:04 +0100

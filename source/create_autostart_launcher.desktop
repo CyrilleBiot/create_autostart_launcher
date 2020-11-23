@@ -1,5 +1,5 @@
 [Desktop Entry]
-Version=1.0.0
+Version=1.1.1
 Name=Create Autostart Launcher
 Comment=Création de lanceur automatique au démarrage de la session X.
 Exec=/usr/share/create_autostart_launcher/create_autostart_launcher.py
@@ -8,6 +8,6 @@ Terminal=False
 Type=Application
 Categories=Utility
 Keywords=Autostart;Launcher;Utils;
-Name[fr_FR]=Crétation de script de démarrage automatique sous X
-Name[fr_FR.UTF-8]=Crétation de script de démarrage automatique sous X
-Name[fr_FR.utf8]=Crétation de script de démarrage automatique sous X
+Name[fr_FR]=Création de script de démarrage automatique sous X
+Name[fr_FR.UTF-8]=Création de script de démarrage automatique sous X
+Name[fr_FR.utf8]=Création de script de démarrage automatique sous X
