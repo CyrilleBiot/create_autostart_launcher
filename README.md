@@ -15,9 +15,7 @@ Le fichier sera créé dans
 
 ## 
 
-  * Le 25 nov 2020 : Version 1.2.1
-
-
+  * Le 25 nov 2020 : Version 1.2.4
 
 
 ![screenshoot](https://cbiot.fr/site/launcher_01.png)
