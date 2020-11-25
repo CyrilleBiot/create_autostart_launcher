@@ -1,3 +1,9 @@
+create-autostart-launcher (1.2.1) UNRELEASED; urgency=medium
+
+  * buttonName add event activate. Fix bugs in Edition Mode (loop / validity filename)
+
+ -- ragnarok <ragnarok@valhalla.sid-local>  Wed, 25 Nov 2020 13:46:34 +0100
+
 create-autostart-launcher (1.1.1) unstable; urgency=medium
 
   * Initial release. First Package 

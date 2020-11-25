@@ -7,6 +7,6 @@ Homepage: https://github.com/CyrilleBiot/create_autostart_launcher
 
 Package: create-autostart-launcher
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, python3, python3-gi
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3, python3-gi, python3-pil
 Homepage: https://github.com/CyrilleBiot/create_autostart_launcher
 Description: Create a autostart launcher for any X display manager. Just add the Name of the launcher, fill the entry of fields Exec and Icon and the launcher is automatically created in the home dir of the current user in ~/.config/autostart. Create a .desktop file with the correct entries. Possibility to enter in a manual edition mode for advanced user.

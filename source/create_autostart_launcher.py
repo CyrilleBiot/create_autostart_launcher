@@ -10,8 +10,8 @@ __author__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __copyright__ = "Copyleft"
 __credits__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __license__ = "GPL"
-__version__ = "1.1.1"
-__date__ = "2020/11/23"
+__version__ = "1.2.1"
+__date__ = "2020/11/25"
 __maintainer__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __email__ = "cyrille@cbiot.fr"
 __status__ = "Devel"
@@ -31,13 +31,14 @@ class FileChooserWindow(Gtk.Window):
         #self.set_default_size(300, 400)
 
         # The path
+        # Launch since tje git clone
         if os.path.exists('.git'):
             self.pathDir = "."
+        # Launch since a deb package install
         else:
             self.pathDir = "/usr/share/create_autostart_launcher/"
 
         self.set_icon_from_file(self.pathDir + '/apropos.png')
-
 
         self.long_text = "[Desktop Entry]\n" \
                     "Name=[NAME]\n" \
@@ -64,6 +65,8 @@ class FileChooserWindow(Gtk.Window):
         self.entryName.set_text("Nom du lanceur")
         self.entryName.set_width_chars(75)
         self.entryName.set_editable(True)
+        self.entryName.connect("activate", self.update_textview, self.entryName)
+
 
         # Set the Button to choose the File Name
         btnFileName = Gtk.Button(label="File Selection")
@@ -161,7 +164,6 @@ class FileChooserWindow(Gtk.Window):
         )
         dialog.format_secondary_text(message2)
         dialog.run()
-
         dialog.destroy()
 
     def ok_alert(self, widget, message1, message2):
@@ -174,7 +176,6 @@ class FileChooserWindow(Gtk.Window):
         )
         dialog.format_secondary_text(message2)
         dialog.run()
-
         dialog.destroy()
 
     def create_autostart_file(self,widget):
@@ -185,48 +186,49 @@ class FileChooserWindow(Gtk.Window):
             start_iter = self.text_buffer.get_start_iter()
             end_iter = self.text_buffer.get_end_iter()
             self.long_text = self.text_buffer.get_text(start_iter, end_iter, True)
-        else:
-            print('NOT IN THE MODE EDITION')
+            # Extract the file name
+            name = re.search("^Name=(.*)$",  self.long_text,re.MULTILINE)
+            name_of_file =name.group(1)
+            print(name_of_file)
 
+        else:
             # Test of existence files to exec and icon
             if not os.path.isfile(self.entryFile.get_text()):
-                print("Fichier FILE inexistant")
                 msg1 = "L'exe n'est pas renseigné."
                 msg2 = "Veuillez sélectionné un fichier depuis le bouton FILE."
                 self.warning_alert(self, msg1, msg2)
                 return
 
             if not os.path.isfile(self.entryIcon.get_text()):
-                print("Fichier ICON inexistant")
                 msg1 = "L'icone n'est pas renseigné."
                 msg2 = "Veuillez sélectionné un fichier depuis le bouton ICON."
                 self.warning_alert(self, msg1, msg2)
                 return
 
-            # Test is the file.desktop already exists or not
-            homedir = os.environ['HOME']
-            name_of_file = homedir + '/.config/autostart/' + self.entryName.get_text() + '.desktop'
-            name_of_file = ''.join(name_of_file.split())
-            print(name_of_file)
+        # Test is the file.desktop already exists or not
+        homedir = os.environ['HOME']
+        name_of_file = name_of_file if self.switch.get_active() else self.entryName.get_text()
+        name_of_file = homedir + '/.config/autostart/' + name_of_file + '.desktop'
+        name_of_file = ''.join(name_of_file.split())
 
-            if os.path.isfile(name_of_file):
-                print("Le fichier existe. On quitte.")
-                msg1 = "Un fichier portant ce nom existe déjà !"
-                msg2 = "Veuillez changer son nom. Ou effacer le fichier déjà existant."
-                self.warning_alert(self, msg1, msg2)
-                return
+        if os.path.isfile(name_of_file):
+            print("Le fichier existe. On quitte.")
+            msg1 = "Un fichier portant ce nom existe déjà !"
+            msg2 = "Veuillez changer son nom. Ou effacer le fichier déjà existant."
+            self.warning_alert(self, msg1, msg2)
+            return
 
         # Record the configuration file to  .config/autostart/NameOfFile.desktop
         file = open(name_of_file, "x")
         file.write(self.long_text)
         file.close()
 
+        # Display message to say "allright"
         msg1 = "Fichier autostart créé."
         msg2 = "Le fichier d'autostart a été créé à cet emplacement : \n \n " \
                 + name_of_file + ".\n \n  " \
                 "Il sera actif au prochain démarrage de session X\n \n  "
         self.ok_alert(self, msg1, msg2)
-
 
     def on_switch_activated(self, switch, gparam):
         if switch.get_active():
@@ -403,12 +405,7 @@ class FileChooserWindow(Gtk.Window):
         self.dialog.run()
 
     def on_click_response_about(self, widget, response):
-        """
-        Fonction fermant la boite de dialogue About
-        :param widget:
-        :param response:
-        :return:
-        """
+
         self.dialog.destroy()
 
 win = FileChooserWindow()
