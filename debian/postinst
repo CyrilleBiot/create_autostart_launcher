@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "-----------------------------------------------------------------------"
 echo "Create sym links"
-ln -sf usr/share/create_autostart_launcher/create_autostart_launcher.py /usr/bin/create_autostart_launcher
+ln -sf /usr/share/create_autostart_launcher/create_autostart_launcher.py /usr/bin/create_autostart_launcher
 echo "Symbolic links created."
 ls -l /usr/bin/create_autostart_launcher
 echo "-----------------------------------------------------------------------"
