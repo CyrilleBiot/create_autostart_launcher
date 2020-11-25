@@ -10,7 +10,7 @@ __author__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __copyright__ = "Copyleft"
 __credits__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __license__ = "GPL"
-__version__ = "1.2.1"
+__version__ = "1.2.4"
 __date__ = "2020/11/25"
 __maintainer__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __email__ = "cyrille@cbiot.fr"
@@ -66,6 +66,7 @@ class FileChooserWindow(Gtk.Window):
         self.entryName.set_width_chars(75)
         self.entryName.set_editable(True)
         self.entryName.connect("activate", self.update_textview, self.entryName)
+        self.entryName.connect("focus-out-event", self.update_focus_out_name, self.entryName)
 
 
         # Set the Button to choose the File Name
@@ -239,6 +240,15 @@ class FileChooserWindow(Gtk.Window):
             self.textView.set_editable(False)
 
     def create_text_buffer(self, widget):
+        self.text_buffer.set_text(self.long_text)
+
+    def update_focus_out_name(self, widget, a, varUpdate):
+        # Update / Name
+        if varUpdate == self.entryName:
+            varUpdate = 'name'
+            entryUpdate = self.entryName.get_text()
+            self.long_text = re.sub("Name=.*\n", 'Name=' + entryUpdate + '\n', self.long_text)
+
         self.text_buffer.set_text(self.long_text)
 
     def update_textview(self, widget, varUpdate):

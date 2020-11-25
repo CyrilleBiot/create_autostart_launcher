@@ -1,8 +1,13 @@
-create-autostart-launcher (1.2.1) UNRELEASED; urgency=medium
+create-autostart-launcher (1.2.4) unstable; urgency=medium
+  * bug fix symlink postinst
+  * activate and focus-out-event on the Entry Name
+
+create-autostart-launcher (1.2.3) UNRELEASED; urgency=medium
 
   * buttonName add event activate. Fix bugs in Edition Mode (loop / validity filename)
+ 
 
- -- ragnarok <ragnarok@valhalla.sid-local>  Wed, 25 Nov 2020 13:46:34 +0100
+ -- ragnarok <ragnarok@valhalla.sid-local>  Wed, 25 Nov 2020 19:00:33 +0100
 
 create-autostart-launcher (1.1.1) unstable; urgency=medium
 
