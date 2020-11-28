@@ -10,7 +10,7 @@ __author__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __copyright__ = "Copyleft"
 __credits__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __license__ = "GPL"
-__version__ = "1.2.4"
+__version__ = "1.2.5"
 __date__ = "2020/11/25"
 __maintainer__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __email__ = "cyrille@cbiot.fr"
@@ -390,7 +390,7 @@ class FileChooserWindow(Gtk.Window):
         self.dialog.set_name("Gtk.AboutDialog")
         self.dialog.set_version(version)
         self.dialog.set_copyright("(C) 2020 Cyrille BIOT")
-        self.dialog.set_comments("pwgen.py.\n\n" \
+        self.dialog.set_comments("create_autostart_launcher.py.\n\n" \
                                  "[" + dateGtKBox + "]")
         self.dialog.set_license("GNU General Public License (GPL), version 3.\n"
                                 "This program is free software: you can redistribute it and/or modify\n"
