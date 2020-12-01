@@ -13,6 +13,29 @@ Le fichier sera créé dans
 
 ```.config/autostart/```
 
+## Contenu du paquet debian
+
+``` tree create-autostart-launcher
+create-autostart-launcher
+├── debian
+│   ├── changelog
+│   ├── compat
+│   ├── control
+│   ├── copyright
+│   ├── install
+│   ├── postinst
+│   ├── prerm
+│   └── rules
+└── source
+    ├── apropos.png
+    ├── create_autostart_launcher.6.gz
+    ├── create_autostart_launcher.desktop
+    └── create_autostart_launcher.py
+
+2 directories, 12 files
+```
+
+
 ## 
 
   * Le 25 nov 2020 : Version 1.2.4
