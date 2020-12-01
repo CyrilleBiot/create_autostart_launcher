@@ -36,10 +36,7 @@ create-autostart-launcher
 ```
 
 
-## 
-
-  * Le 25 nov 2020 : Version 1.2.4
-
+## Screenshoots
 
 ![screenshoot](https://cbiot.fr/site/launcher_01.png)
 ![screenshoot](https://cbiot.fr/site/launcher_02.png)
